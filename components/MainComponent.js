@@ -191,7 +191,7 @@ const LoginNavigator = createStackNavigator(
     }
 );
 
-const CusotmDrawerContentComponent = props => (
+const CustomDrawerContentComponent = props => (
     <ScrollView>
         <SafeAreaView
             style={styles.container}
@@ -211,19 +211,19 @@ const CusotmDrawerContentComponent = props => (
 
 const MainNavigator = createDrawerNavigator(
     {
-            Login: {
-                screen: LoginNavigator,
-                navigationOptions: {
-                    drawerIcon: ({tintColor}) => (
-                        <Icon
-                            name='sign-in'
-                            type='font-awesome'
-                            size={24}
-                            color={tintColor}
-                        />
-                    )
-                }
-            },
+        Login: {
+            screen: LoginNavigator,
+            navigationOptions: {
+                drawerIcon: ({tintColor}) => (
+                    <Icon
+                        name='sign-in'
+                        type='font-awesome'
+                        size={24}
+                        color={tintColor}
+                    />
+                )
+            }
+        },
         Home: {
              screen: HomeNavigator,
              navigationOptions: {
@@ -250,17 +250,17 @@ const MainNavigator = createDrawerNavigator(
                 )
             }
          },
-             Reservation: {
-                screen: ReservationNavigator,
-                navigationOptions: {
-                    drawerLabel: 'Reserve Campsite',
-                   drawerIcon: ({tintColor}) => (
-                       <Icon
-                           name='tree'
-                           type='font-awesome'
-                           size={24}
-                           color={tintColor} 
-                       />
+        Reservation: {
+            screen: ReservationNavigator,
+            navigationOptions: {
+                drawerLabel: 'Reserve Campsite',
+                drawerIcon: ({tintColor}) => (
+                    <Icon
+                        name='tree'
+                        type='font-awesome'
+                        size={24}
+                        color={tintColor} 
+                    />
                    )
                }
             },
@@ -292,25 +292,25 @@ const MainNavigator = createDrawerNavigator(
                     )
                 }
             },
-        Contact: {
-             screen: ContactNavigator,
-             navigationOptions: {
-                drawerLabel: 'Contact Us',
-                drawerIcon: ({tintColor}) => (
-                    <Icon
-                        name='address-card'
-                        type='font-awesome'
-                        size={24}
-                        color={tintColor} 
-                    />
-                )
-            } 
-         }
-    },
+            Contact: {
+                screen: ContactNavigator,
+                navigationOptions: {
+                    drawerLabel: 'Contact Us',
+                    drawerIcon: ({tintColor}) => (
+                        <Icon
+                            name='address-card'
+                            type='font-awesome'
+                            size={24}
+                            color={tintColor} 
+                        />
+                    )
+                } 
+            }
+     },
     {
         initialRouteName: 'Home',
         drawerBackgroundColor: '#CEC8FF',
-        contentComponent: CusotmDrawerContentComponent
+        contentComponent: CustomDrawerContentComponent
     }
 );
 
