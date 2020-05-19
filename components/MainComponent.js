@@ -80,7 +80,7 @@ const HomeNavigator = createStackNavigator(
 
 const AboutNavigator = createStackNavigator(
     {
-        Home: { screen: About }
+        About: { screen: About }
     },
     {
         navigationOptions: ({navigation}) => ({
@@ -103,7 +103,7 @@ const AboutNavigator = createStackNavigator(
 
 const ContactNavigator = createStackNavigator(
     {
-        Home: { screen: Contact }
+        Contact: { screen: Contact }
     },
     {
         navigationOptions: ({navigation}) => ({
@@ -324,17 +324,35 @@ class Main extends Component {
         this.props.fetchComments();
         this.props.fetchPromotions();
         this.props.fetchPartners();
+        this.showNetInfo();
+    }
 
-        NetInfo.fetch().then(connectionInfo => {
+        showNetInfo = async () => {
+            const connectionInfo = await NetInfo.fetch();
+
+                (Platform.OS === 'ios') ?
+                    Alert.alert('Initial Network Connectivity Type:', connectionInfo.type) : ToastAndroid.show('Initial Network Connectivity Type: ' + connectionInfo.type, ToastAndroid.LONG);
+
+                    this.unsubscribeNetInfo = NetInfo.addEventListener(connectionInfo => {
+                        this.handleConnectivityChange(connectionInfo);
+                    });
+        };
+
+
+    
+
+        /*NetInfo.fetch().then(connectionInfo => {
+
             (Platform.OS === 'ios') ?
-             Alert.alert('Initial Network Connectivity Type:', connectionInfo.type)
-             : ToastAndroid.show('Initial Network Connectivity Type: ' + connectionInfo.type, ToastAndroid.LONG);
+                Alert.alert('Initial Network Connectivity Type:', connectionInfo.type) : ToastAndroid.show('Initial Network Connectivity Type: ' + connectionInfo.type, ToastAndroid.LONG);
         });
-        
+
         this.unsubscribeNetInfo = NetInfo.addEventListener(connectionInfo => {
             this.handleConnectivityChange(connectionInfo);
         });
     }
+        */
+    
 
     componentWillUnmount() {
         this.unsubscribeNetInfo();
@@ -356,8 +374,7 @@ class Main extends Component {
                 connectionMsg = 'You are now connected to a WiFi network.';
                 break;
         }
-        (Platform.OS === 'ios') ? Alert.alert('Connection change:', connectionMsg)
-            : ToastAndroid.show(connectionMsg, ToastAndroid.LONG);
+        (Platform.OS === 'ios') ? Alert.alert('Connection change:', connectionMsg) : ToastAndroid.show(connectionMsg, ToastAndroid.LONG);
     }
 
 
